@@ -1,3 +1,3 @@
 export default function Home() {
-  return <main>my app</main>;
+  return <div className="">kotha app main content</div>;
 }
