@@ -1,4 +1,4 @@
-import Navbar from "@/components/shared/Navbar";
+import Navbar from "@/components/shared/navbar";
 import RightSidebar from "@/components/shared/right-sidebar";
 import Sidebar from "@/components/shared/sidebar";
 import { siteConfig } from "@/config/site";
