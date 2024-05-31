@@ -1,6 +1,3 @@
-import Navbar from "@/components/shared/navbar";
-import RightSidebar from "@/components/shared/right-sidebar";
-import Sidebar from "@/components/shared/sidebar";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
@@ -67,19 +64,7 @@ export default function RootLayout({
       <body
         className={cn("min-h-screen font-sans antialiased", poppins.variable)}
       >
-        <main className="app-layout">
-          <Navbar />
-          <Sidebar />
-          <section className="app-layout__main px-4 py-3.5 mx-auto max-w-[calc(100vw-270px)] w-[1120px]">
-            <div className="relative flex gap-4 w-full ">
-              <div className="max-w-[calc(100%-(16px+315px))] w-full">
-                {children}
-              </div>
-
-              <RightSidebar />
-            </div>
-          </section>
-        </main>
+        {children}
       </body>
     </html>
   );

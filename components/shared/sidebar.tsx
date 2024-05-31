@@ -15,7 +15,8 @@ const Sidebar = () => {
             className={cn(
               "flex items-center gap-2.5 rounded-md hover:bg-[#F6F8F9] justify-start px-5 py-2.5",
               {
-                "bg-[#E5EBEE] hover:bg-[#E5EBEE]": pathname === "/",
+                "bg-[#E5EBEE] hover:bg-[#E5EBEE]":
+                  pathname === "/" || pathname === "/home",
               }
             )}
           >
