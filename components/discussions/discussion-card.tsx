@@ -1,10 +1,13 @@
+import { PostItem } from "@/types/post";
 import { MessageCircleMore } from "lucide-react";
 import Link from "next/link";
-
-const DiscussionItem = () => {
+type DiscussionCardProps = {
+  discussion: PostItem;
+};
+const DiscussionCard = ({ discussion }: DiscussionCardProps) => {
   return (
-    <Link href={"/discussion/1"}>
-      <div className="flex bg-background rounded-lg border border-border/40 shadow-sm px-5 py-5 cursor-pointer hover:bg-secondary transition-all">
+    <Link href={`/discussion/${discussion.id}`}>
+      <div className="flex bg-background rounded-lg border border-border/40 shadow-sm px-5 py-5 cursor-pointer hover:bg-secondary transition-all hover:border-border">
         <div className="flex gap-8 justify-between w-full">
           <div className="flex justify-start gap-2.5 align-baseline">
             <div className="">
@@ -14,15 +17,14 @@ const DiscussionItem = () => {
             </div>
             <div className="grid gap-[2px]">
               <h2 className="text-base font-medium text-foreground">
-                New opportunities in the area of e-health
+                {discussion.title}
               </h2>
               <p className="text-[#89929D] text-sm font-normal">
                 <strong className="text-[#7C8692]">Jisan mia</strong> stated the
                 discussion 10 days ago
               </p>
-              <p className="text-[#89929D] text-sm font-normal">
-                Sed ut perspiciatis unde omnis iste ut perspiciatis unde omnis
-                istut perspiciatis unde omnis ist natus error sit voluptatem...
+              <p className="text-[#89929D] text-sm font-normal line-clamp-2">
+                {discussion.body}
               </p>
             </div>
           </div>
@@ -55,4 +57,4 @@ const DiscussionItem = () => {
   );
 };
 
-export default DiscussionItem;
+export default DiscussionCard;
