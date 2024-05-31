@@ -25,3 +25,10 @@ export type SidebarNavItem = {
   >;
   pathnameMatcher: Array<string>;
 };
+
+export type PopularTopicItem = {
+  id: number;
+  topic: string;
+  topicColor: string;
+  slug: string;
+};

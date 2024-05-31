@@ -1,7 +1,7 @@
 "use client";
 import { cn } from "@/lib/utils";
-import { SidebarNavItem } from "@/types";
-import { Home, PieChart, SquareGanttChart, UserCircle } from "lucide-react";
+import { PopularTopicItem, SidebarNavItem } from "@/types";
+import { Home, PieChart, SquareGanttChart } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -26,6 +26,39 @@ const sidebarNavItems: SidebarNavItem[] = [
     link: "/all",
     icon: SquareGanttChart,
     pathnameMatcher: ["/all"],
+  },
+];
+
+const popularTopicsList: PopularTopicItem[] = [
+  {
+    id: 1,
+    topic: "General",
+    topicColor: "#4991E3",
+    slug: "/topic/general",
+  },
+  {
+    id: 2,
+    topic: "Algorithms",
+    topicColor: "#FFDD4B",
+    slug: "/topic/algorithms",
+  },
+  {
+    id: 3,
+    topic: "Computer Science",
+    topicColor: "#C082ED",
+    slug: "/topic/computer-science",
+  },
+  {
+    id: 4,
+    topic: "Dad Jokes",
+    topicColor: "#F77390",
+    slug: "/topic/dad-jokes",
+  },
+  {
+    id: 5,
+    topic: "Design",
+    topicColor: "#FFD000",
+    slug: "/topic/design",
   },
 ];
 
@@ -59,23 +92,35 @@ const Sidebar = () => {
 
       <div>
         <h3 className="flex items-center gap-2.5 rounded-md hover:bg-[#F6F8F9] justify-between px-3 py-2.5 text-sm cursor-pointer text-[##576F76] uppercase font-normal">
-          Top Users
+          Popular Topics
         </h3>
 
         <ul>
-          {Array.from(Array(10).keys()).map((item) => (
-            <li key={item}>
-              <Link
-                href={"/user/1"}
-                className={cn(
-                  "flex items-center gap-2.5 rounded-md hover:bg-[#F6F8F9] justify-start px-5 py-2.5"
-                )}
-              >
-                <UserCircle className="size-5" />
-                <span className="text-sm text-normal">John Doe</span>
-              </Link>
-            </li>
-          ))}
+          {popularTopicsList.map((topic) => {
+            const { topicColor, topic: topicName, slug } = topic;
+            return (
+              <li key={topic.id}>
+                <Link
+                  href={slug}
+                  className={cn(
+                    "flex items-center gap-2.5 rounded-md hover:bg-[#F6F8F9] justify-start px-5 py-2.5",
+                    {
+                      "bg-[#E5EBEE] hover:bg-[#E5EBEE]":
+                        pathname.includes(slug),
+                    }
+                  )}
+                >
+                  <div
+                    className={cn("h-2.5 w-2.5 rounded-full")}
+                    style={{
+                      backgroundColor: topicColor,
+                    }}
+                  ></div>
+                  <span className="text-sm text-normal">{topicName}</span>
+                </Link>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </aside>
