@@ -2,6 +2,7 @@
 
 import { getPostsData } from "@/actions/getPosts";
 import { POSTS_PER_PAGE } from "@/config/constants";
+import { getARandomTopic } from "@/lib/utils";
 import { PostItem } from "@/types/post";
 import { UserItem } from "@/types/user";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -24,6 +25,7 @@ const DiscussionList = ({ initialPosts, usersData }: DiscussionListProps) => {
       const morePostsWithUserInfo = morePosts.map((post) => ({
         ...post,
         user: usersData[`${post.userId}`],
+        topic: getARandomTopic(),
       }));
 
       if (!morePosts.length) {

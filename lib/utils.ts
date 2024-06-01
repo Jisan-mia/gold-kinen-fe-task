@@ -1,3 +1,4 @@
+import { popularTopicsList } from "@/components/shared/data";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -12,4 +13,9 @@ export const getFirstTwoLetters = (str: string) => {
   } else {
     return "";
   }
+};
+
+export const getARandomTopic = () => {
+  const randomIndex = Math.floor(Math.random() * popularTopicsList.length);
+  return popularTopicsList[randomIndex];
 };

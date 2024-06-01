@@ -16,7 +16,22 @@ const DiscussionCard = ({
 }: DiscussionCardProps) => {
   return (
     <Link href={isDetailDiscussion ? "#" : `/discussion/${discussion.id}`}>
-      <div className="flex bg-background rounded-lg border border-border/40 shadow-sm px-5 py-5 cursor-pointer hover:bg-secondary transition-all hover:border-border">
+      <div className="flex bg-background rounded-lg border border-border/40 shadow-sm px-5 py-5 cursor-pointer hover:bg-secondary transition-all hover:border-border relative">
+        {/* topic */}
+        <div
+          className={`absolute top-0 right-0 capitalize border h-6 px-2.5 py-2.5 rounded-md flex items-center gap-1.5`}
+          style={{
+            borderColor: `${discussion.topic.topicColor}`,
+          }}
+        >
+          <div
+            className={cn("h-2.5 w-2.5 rounded-full")}
+            style={{
+              backgroundColor: discussion.topic.topicColor,
+            }}
+          ></div>
+          <span className="text-sm text-normal">{discussion.topic.topic}</span>
+        </div>
         <div className="flex gap-8 justify-between w-full">
           <div className="flex justify-start gap-2.5 align-baseline">
             <div className="">

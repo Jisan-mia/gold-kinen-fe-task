@@ -1,3 +1,4 @@
+import { PopularTopicItem } from ".";
 import { UserItem } from "./user";
 
 export interface PostItem {
@@ -6,4 +7,5 @@ export interface PostItem {
   title: string;
   body: string;
   user: UserItem;
+  topic: PopularTopicItem;
 }
