@@ -72,7 +72,7 @@ const DiscussionList = ({ initialPosts, usersData }: DiscussionListProps) => {
   }, [hasMoreData, loadMorePosts, offset]);
 
   return (
-    <div className="grid gap-4">
+    <div className="grid gap-6 mt-4">
       {/* <div className="fixed top-5 right-28 bg-green-950 text-white text-xl z-50">
         {offset}
       </div> */}

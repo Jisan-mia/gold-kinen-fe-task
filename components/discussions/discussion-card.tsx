@@ -4,6 +4,8 @@ import { CommentItem } from "@/types/comment";
 import { PostItem } from "@/types/post";
 import { MessageCircleMore } from "lucide-react";
 import Link from "next/link";
+import { Suspense } from "react";
+import TopicBadge, { TopicBadgeLoading } from "./topic-badge";
 type DiscussionCardProps = {
   discussion: PostItem;
   isDetailDiscussion?: boolean;
@@ -15,23 +17,18 @@ const DiscussionCard = ({
   comments,
 }: DiscussionCardProps) => {
   return (
-    <Link href={isDetailDiscussion ? "#" : `/discussion/${discussion.id}`}>
+    <Link
+      href={
+        isDetailDiscussion
+          ? "#"
+          : `/discussion/${discussion.id}?topic=${discussion?.topic.topic}`
+      }
+    >
       <div className="flex bg-background rounded-lg border border-border/40 shadow-sm px-5 py-5 cursor-pointer hover:bg-secondary transition-all hover:border-border relative">
         {/* topic */}
-        <div
-          className={`absolute top-0 right-0 capitalize border h-6 px-2.5 py-2.5 rounded-md flex items-center gap-1.5`}
-          style={{
-            borderColor: `${discussion.topic.topicColor}`,
-          }}
-        >
-          <div
-            className={cn("h-2.5 w-2.5 rounded-full")}
-            style={{
-              backgroundColor: discussion.topic.topicColor,
-            }}
-          ></div>
-          <span className="text-sm text-normal">{discussion.topic.topic}</span>
-        </div>
+        <Suspense fallback={<TopicBadgeLoading />}>
+          <TopicBadge discussion={discussion} />
+        </Suspense>
         <div className="flex gap-8 justify-between w-full">
           <div className="flex justify-start gap-2.5 align-baseline">
             <div className="">

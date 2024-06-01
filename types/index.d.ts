@@ -31,4 +31,5 @@ export type PopularTopicItem = {
   topic: string;
   topicColor: string;
   slug: string;
+  offset: number;
 };

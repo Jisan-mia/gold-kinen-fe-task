@@ -7,8 +7,7 @@ const RightSidebar = () => {
             Recent Discussions
           </h3>
 
-          <div>
-            {" "}
+          <div className="grid gap-2 text-foreground/80">
             <p>
               Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorem
               laborum autem tenetur ipsam quia eos?
