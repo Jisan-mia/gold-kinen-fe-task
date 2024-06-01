@@ -1,6 +1,6 @@
 const RightSidebar = () => {
   return (
-    <div className="sticky top-0 max-h-[calc(100vh-55px)] max-w-[315px] w-[315px] overflow-y-auto overflow-x-hidden custom-scrollbar">
+    <div className="sticky top-0 max-h-[calc(100vh-55px)] max-w-[315px] w-[315px] overflow-y-auto overflow-x-hidden custom-scrollbar tablet:hidden">
       <aside className="bg-background px-4 py-4 rounded-md flex flex-col">
         <div className="flex flex-col gap-2">
           <h3 className="font-normal text-base uppercase">

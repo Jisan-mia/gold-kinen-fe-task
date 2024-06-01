@@ -41,6 +41,14 @@ const config = {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      screens: {
+        "mobile-md": {
+          max: "768px",
+        },
+        tablet: {
+          max: "1024px",
+        },
+      },
     },
   },
   plugins: [],

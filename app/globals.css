@@ -104,3 +104,13 @@
   background: #E5EBEE;
   border-radius: 10px;
 }
+
+@media (max-width: 768px) {
+  .app-layout {
+    grid-template-areas:
+      "nav nav"
+      "main main";
+    grid-template-rows: 55px 1fr;
+    grid-template-columns: 1fr 1fr
+  }
+}

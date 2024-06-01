@@ -8,9 +8,9 @@ const MainAppLayout = ({ children }: PropsWithChildren) => {
     <main className="app-layout">
       <Navbar />
       <Sidebar />
-      <section className="app-layout__main px-4 py-3.5 mx-auto max-w-[calc(100vw-270px)] w-[1120px]">
+      <section className="app-layout__main px-4 py-3.5 mx-auto max-w-[calc(100vw-270px)] w-[1120px] mobile-md:max-w-full">
         <div className="relative flex gap-4 w-full ">
-          <div className="max-w-[calc(100%-(16px+315px))] w-full">
+          <div className="max-w-[calc(100%-(16px+315px))] tablet:max-w-max w-full">
             {children}
           </div>
 

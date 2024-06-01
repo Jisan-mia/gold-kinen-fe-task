@@ -1,13 +1,65 @@
 "use client";
 import { cn } from "@/lib/utils";
+import { X } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Dispatch, SetStateAction, useEffect } from "react";
 import { popularTopicsList, sidebarNavItems } from "./data";
 
-const Sidebar = () => {
+const Sidebar = ({
+  isResponsiveSidebar = false,
+  showSidebar = false,
+  setShowSidebar,
+}: {
+  isResponsiveSidebar?: boolean;
+  showSidebar?: boolean;
+  setShowSidebar?: Dispatch<SetStateAction<boolean>>;
+}) => {
   const pathname = usePathname();
+  useEffect(() => {
+    if (isResponsiveSidebar && showSidebar && setShowSidebar) {
+      setShowSidebar(false);
+    }
+  }, [pathname]);
   return (
-    <aside className="app-layout__sidebar bg-background border-r border-border overflow-y-auto overflow-x-hidden custom-scrollbar max-h-[calc(100vh-55px)] px-4 py-3.5">
+    <aside
+      className={cn(
+        `bg-background border-r border-border overflow-y-auto overflow-x-hidden custom-scrollbar px-4 py-3.5 transition-all duration-200 ${
+          isResponsiveSidebar
+            ? "z-50 absolute w-full h-full top-0 right-0 bottom-0 pt-0 translate-x-[-100%]"
+            : ".app-layout__sidebar mobile-md:hidden max-h-[calc(100vh-55px)]"
+        }`,
+        {
+          "translate-x-[0%]": showSidebar,
+        }
+      )}
+    >
+      {isResponsiveSidebar && (
+        <div className="w-full flex items-center justify-between h-[55px] mb-2">
+          <div className="h-[35px] w-max">
+            <Link href={"/"} className="h-full w-full">
+              <Image
+                src={"/logo1.webp"}
+                alt="Kotha App logo image"
+                width={2000}
+                height={419}
+                className="w-full h-full object-contain"
+              />
+            </Link>
+          </div>
+
+          <button
+            className="bg-transparent"
+            onClick={() => {
+              if (setShowSidebar) setShowSidebar(false);
+            }}
+          >
+            <X className="size-6" />
+          </button>
+        </div>
+      )}
+      <div></div>
       <ul>
         {sidebarNavItems.map((sidebarItem) => {
           const { icon: Icon, label, link, pathnameMatcher } = sidebarItem;

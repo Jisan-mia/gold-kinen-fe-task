@@ -29,7 +29,7 @@ const DiscussionCard = ({
         <Suspense fallback={<TopicBadgeLoading />}>
           <TopicBadge discussion={discussion} />
         </Suspense>
-        <div className="flex gap-8 justify-between w-full">
+        <div className="flex gap-8 justify-between w-full mobile-md:flex-col">
           <div className="flex justify-start gap-2.5 align-baseline">
             <div className="">
               <div className="h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center">
