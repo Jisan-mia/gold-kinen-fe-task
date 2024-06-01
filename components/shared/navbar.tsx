@@ -1,19 +1,22 @@
 import userImg from "@/public/user.webp";
 import { PlusIcon, SearchIcon } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 const Navbar = () => {
   return (
     <nav className="app-layout__navbar bg-background h-full w-full border-b border-border flex items-center">
       <div className="grid items-center w-full px-4 grid-cols-12">
         <div className="col-start-1 col-end-3">
           <div className="h-[35px] w-max">
-            <Image
-              src={"/logo1.webp"}
-              alt="Kotha App logo image"
-              width={2000}
-              height={419}
-              className="w-full h-full object-contain"
-            />
+            <Link href={"/"} className="h-full w-full">
+              <Image
+                src={"/logo1.webp"}
+                alt="Kotha App logo image"
+                width={2000}
+                height={419}
+                className="w-full h-full object-contain"
+              />
+            </Link>
           </div>
         </div>
         <div className="w-full flex justify-stretch col-start-3 col-end-9">
