@@ -1,7 +1,7 @@
-import userImg from "@/public/user.webp";
 import { PlusIcon, SearchIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import NavbarProfilePopup from "./navbar-profile-popup";
 const Navbar = () => {
   return (
     <nav className="app-layout__navbar bg-background h-full w-full border-b border-border flex items-center">
@@ -43,13 +43,14 @@ const Navbar = () => {
               <PlusIcon className="size-5 text-primary" />
               Create
             </button>
-            <button className="w-8 h-8 rounded-full ring-offset-background focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2">
+            {/* <button className="w-8 h-8 rounded-full ring-offset-background focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2">
               <Image
                 src={userImg}
                 alt="Profile Image"
                 className="w-ull h-full object-cover rounded-full"
               />
-            </button>
+            </button> */}
+            <NavbarProfilePopup />
           </div>
         </div>
       </div>
