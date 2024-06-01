@@ -1,12 +1,20 @@
+import { cn } from "@/lib/utils";
+import { CommentItem } from "@/types/comment";
 import { PostItem } from "@/types/post";
 import { MessageCircleMore } from "lucide-react";
 import Link from "next/link";
 type DiscussionCardProps = {
   discussion: PostItem;
+  isDetailDiscussion?: boolean;
+  comments?: CommentItem[];
 };
-const DiscussionCard = ({ discussion }: DiscussionCardProps) => {
+const DiscussionCard = ({
+  discussion,
+  isDetailDiscussion = false,
+  comments,
+}: DiscussionCardProps) => {
   return (
-    <Link href={`/discussion/${discussion.id}`}>
+    <Link href={isDetailDiscussion ? "#" : `/discussion/${discussion.id}`}>
       <div className="flex bg-background rounded-lg border border-border/40 shadow-sm px-5 py-5 cursor-pointer hover:bg-secondary transition-all hover:border-border">
         <div className="flex gap-8 justify-between w-full">
           <div className="flex justify-start gap-2.5 align-baseline">
@@ -23,7 +31,11 @@ const DiscussionCard = ({ discussion }: DiscussionCardProps) => {
                 <strong className="text-[#7C8692]">Jisan mia</strong> stated the
                 discussion 10 days ago
               </p>
-              <p className="text-[#89929D] text-sm font-normal line-clamp-2">
+              <p
+                className={cn("text-[#89929D] text-sm font-normal ", {
+                  "line-clamp-2": !isDetailDiscussion,
+                })}
+              >
                 {discussion.body}
               </p>
             </div>
@@ -48,7 +60,9 @@ const DiscussionCard = ({ discussion }: DiscussionCardProps) => {
             </div>
             <div className="flex items-center gap-1">
               <MessageCircleMore className="size-5 text-[#363F47] fill-[#363F47] -rotate-90" />
-              <span className="text-[#363F47] font-medium text-base ">6</span>
+              <span className="text-[#363F47] font-medium text-base ">
+                {comments ? comments.length : 5}
+              </span>
             </div>
           </div>
         </div>

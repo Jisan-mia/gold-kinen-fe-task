@@ -1,6 +1,16 @@
-import { type ClassValue, clsx } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
+
+export const getFirstTwoLetters = (str: string) => {
+  const words = str.match(/\b\w+/g);
+
+  if (words) {
+    return words.length >= 2 ? words[0][0] + words[0][0] : words[0][0];
+  } else {
+    return "";
+  }
+};

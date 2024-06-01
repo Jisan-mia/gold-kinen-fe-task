@@ -6,10 +6,12 @@ import { PostItem } from "@/types/post";
 
 export const getPostsData = async (
   offset: number,
-  limit: number
+  limit: number,
+  sortKey = "id",
+  sortOrder = "desc"
 ): Promise<PostItem[]> => {
   console.log({ offset, limit });
-  const url = getApiUrlForPosts(offset, limit);
+  const url = getApiUrlForPosts(offset, limit, sortKey, sortOrder);
   console.log(url);
   try {
     const response = await fetch(url);
