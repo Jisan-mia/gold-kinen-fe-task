@@ -3,14 +3,16 @@
 import { getPostsData } from "@/actions/getPosts";
 import { POSTS_PER_PAGE } from "@/config/constants";
 import { PostItem } from "@/types/post";
+import { UserItem } from "@/types/user";
 import { useCallback, useEffect, useRef, useState } from "react";
 import DiscussionCard from "./discussion-card";
 
 type DiscussionListProps = {
   initialPosts: PostItem[];
+  usersData: { [key: number]: UserItem };
 };
 
-const DiscussionList = ({ initialPosts }: DiscussionListProps) => {
+const DiscussionList = ({ initialPosts, usersData }: DiscussionListProps) => {
   const [offset, setOffset] = useState(POSTS_PER_PAGE);
   const [posts, setPosts] = useState<PostItem[]>(initialPosts);
   const [hasMoreData, setHasMoreData] = useState(true);
@@ -19,16 +21,20 @@ const DiscussionList = ({ initialPosts }: DiscussionListProps) => {
   const loadMorePosts = useCallback(async () => {
     if (hasMoreData) {
       const morePosts = await getPostsData(offset, POSTS_PER_PAGE);
+      const morePostsWithUserInfo = morePosts.map((post) => ({
+        ...post,
+        user: usersData[`${post.userId}`],
+      }));
 
       if (!morePosts.length) {
         setHasMoreData(false);
         return;
       }
 
-      setPosts((prevPosts) => [...prevPosts, ...morePosts]);
+      setPosts((prevPosts) => [...prevPosts, ...morePostsWithUserInfo]);
       setOffset((prevOffset) => prevOffset + POSTS_PER_PAGE);
     }
-  }, [hasMoreData, offset]);
+  }, [hasMoreData, offset, usersData]);
 
   useEffect(() => {
     console.log({ offset });
@@ -57,6 +63,7 @@ const DiscussionList = ({ initialPosts }: DiscussionListProps) => {
     // cleanup
     return () => {
       if (targetScrollTriggerElement.current) {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         observer.unobserve(targetScrollTriggerElement.current);
       }
     };

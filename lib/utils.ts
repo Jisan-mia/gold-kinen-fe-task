@@ -7,9 +7,8 @@ export function cn(...inputs: ClassValue[]) {
 
 export const getFirstTwoLetters = (str: string) => {
   const words = str.match(/\b\w+/g);
-
   if (words) {
-    return words.length >= 2 ? words[0][0] + words[0][0] : words[0][0];
+    return words.length >= 2 ? words[0][0] + words[1][0] : words[0][0];
   } else {
     return "";
   }

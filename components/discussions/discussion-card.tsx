@@ -1,4 +1,5 @@
-import { cn } from "@/lib/utils";
+"use client";
+import { cn, getFirstTwoLetters } from "@/lib/utils";
 import { CommentItem } from "@/types/comment";
 import { PostItem } from "@/types/post";
 import { MessageCircleMore } from "lucide-react";
@@ -20,7 +21,9 @@ const DiscussionCard = ({
           <div className="flex justify-start gap-2.5 align-baseline">
             <div className="">
               <div className="h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center">
-                <span className="text-sm font-medium text-gray-700">JM</span>
+                <span className="text-sm font-medium text-gray-700 uppercase">
+                  {getFirstTwoLetters(discussion?.user?.name || "J M")}
+                </span>
               </div>
             </div>
             <div className="grid gap-[2px]">
@@ -28,8 +31,10 @@ const DiscussionCard = ({
                 {discussion.title}
               </h2>
               <p className="text-[#89929D] text-sm font-normal">
-                <strong className="text-[#7C8692]">Jisan mia</strong> stated the
-                discussion 10 days ago
+                <strong className="text-[#7C8692] capitalize">
+                  {discussion?.user?.name || "Jisan Mia"}&nbsp;
+                </strong>
+                stated the discussion 10 days ago
               </p>
               <p
                 className={cn("text-[#89929D] text-sm font-normal ", {
@@ -44,18 +49,33 @@ const DiscussionCard = ({
           <div className="flex items-center justify-end gap-5">
             <div>
               <div className="flex -space-x-1 items-center">
-                <div className="h-9 w-9 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden ring-2 ring-border">
-                  <span className="text-sm text-gray-500">JM</span>
-                </div>
-                <div className="h-9 w-9 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden ring-2 ring-border">
-                  <span className="text-sm text-gray-500">JM</span>
-                </div>
-                <div className="h-9 w-9 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden ring-2 ring-border">
-                  <span className="text-sm text-gray-500">JM</span>
-                </div>
-                <div className="h-9 w-9 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden ring-2 ring-border">
-                  <span className="text-sm text-gray-500">JM</span>
-                </div>
+                {comments ? (
+                  comments.slice(0, 4).map((comment) => (
+                    <div
+                      key={comment.id}
+                      className="h-9 w-9 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden ring-2 ring-border"
+                    >
+                      <span className="text-sm text-gray-500 uppercase">
+                        {getFirstTwoLetters(comment.name)}
+                      </span>
+                    </div>
+                  ))
+                ) : (
+                  <>
+                    <div className="h-9 w-9 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden ring-2 ring-border">
+                      <span className="text-sm text-gray-500">JM</span>
+                    </div>
+                    <div className="h-9 w-9 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden ring-2 ring-border">
+                      <span className="text-sm text-gray-500">JM</span>
+                    </div>
+                    <div className="h-9 w-9 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden ring-2 ring-border">
+                      <span className="text-sm text-gray-500">JM</span>
+                    </div>
+                    <div className="h-9 w-9 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden ring-2 ring-border">
+                      <span className="text-sm text-gray-500">JM</span>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
             <div className="flex items-center gap-1">

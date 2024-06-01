@@ -6,6 +6,7 @@ import DiscussionCard from "@/components/discussions/discussion-card";
 import { handleError } from "@/lib/handleError";
 import { getCommentsData } from "@/services/commentsApi";
 import { getApiUrlForPosts, getIndividualPostData } from "@/services/postsApi";
+import { getUserDetail } from "@/services/userApi";
 import { PostItem } from "@/types/post";
 
 export async function generateStaticParams() {
@@ -36,6 +37,9 @@ const SpecificDiscussionPage = async ({
 
   // wait for the promises to resolve
   const [post, comments] = await Promise.all([postData, commentsData]);
+  const userData = await getUserDetail(post.userId);
+
+  post.user = userData;
 
   return (
     <div>
