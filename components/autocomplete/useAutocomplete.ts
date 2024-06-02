@@ -1,7 +1,14 @@
 import useClickOutside from "@/hooks/useClickOutside";
 import { getAutocompleteSearchResult } from "@/services/postsApi";
 import { PostItem } from "@/types/post";
-import { ChangeEvent, useCallback, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import {
+  ChangeEvent,
+  KeyboardEvent,
+  useCallback,
+  useRef,
+  useState,
+} from "react";
 import { debounce } from "./debounce";
 
 export function useAutocomplete() {
@@ -10,8 +17,12 @@ export function useAutocomplete() {
   const [isLoading, setIsLoading] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [highlightedIndex, setHighlightedIndex] = useState<number | null>(null);
 
   const searchbarRef = useRef(null);
+  const listRef = useRef<HTMLDivElement>(null);
+
+  const router = useRouter();
 
   useClickOutside(searchbarRef, () => {
     setIsSuggestionOpen(false);
@@ -44,6 +55,59 @@ export function useAutocomplete() {
     }
   };
 
+  const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (!isSuggestionOpen || !searchResult) return;
+
+    switch (event.key) {
+      case "Enter":
+        if (highlightedIndex !== null) {
+          const highlightedItem = searchResult[highlightedIndex];
+          router.push(`/discussion/${highlightedItem.id}`);
+        }
+        break;
+
+      case "ArrowDown":
+        setHighlightedIndex((prevIndex) => {
+          const nextIndex =
+            prevIndex === null || prevIndex === searchResult.length - 1
+              ? 0
+              : prevIndex + 1;
+          scrollToHighlightedItem(nextIndex);
+          return nextIndex;
+        });
+        break;
+
+      case "ArrowUp":
+        setHighlightedIndex((prevIndex) => {
+          const nextIndex =
+            prevIndex === null || prevIndex === 0
+              ? searchResult.length - 1
+              : prevIndex - 1;
+          scrollToHighlightedItem(nextIndex);
+
+          return nextIndex;
+        });
+        break;
+
+      case "Escape":
+        setIsSuggestionOpen(false);
+        break;
+    }
+  };
+
+  const scrollToHighlightedItem = (index: number) => {
+    if (listRef?.current) {
+      const item = listRef.current.children[index] as HTMLElement;
+
+      if (item) {
+        item.scrollIntoView({
+          block: "nearest",
+          inline: "nearest",
+        });
+      }
+    }
+  };
+
   return {
     isSuggestionOpen,
     setIsSuggestionOpen,
@@ -54,5 +118,8 @@ export function useAutocomplete() {
     isLoading,
     setSearchText,
     setSearchResult,
+    handleKeyDown,
+    highlightedIndex,
+    listRef,
   };
 }

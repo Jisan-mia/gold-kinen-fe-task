@@ -7,12 +7,12 @@ import SearchResultItem from "./search-result-item";
 
 const TrendingDiscussionSuggestion = () => {
   const [trendingData, setTrendingData] = useState<PostItem[] | null>(null);
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
   const fetchTrendingData = async () => {
-    setIsLoading(true)
+    setIsLoading(true);
     const data = await getPostsData(0, POSTS_PER_PAGE);
     setTrendingData(data);
-    setIsLoading(false)
+    setIsLoading(false);
   };
   useEffect(() => {
     fetchTrendingData();
@@ -30,7 +30,8 @@ const TrendingDiscussionSuggestion = () => {
             <Loader2 className="h-5 w-5 animate-spin text-center" />
           </div>
         )}
-        {!isLoading && trendingData &&
+        {!isLoading &&
+          trendingData &&
           trendingData.map((item) => (
             <SearchResultItem key={item.id} item={item} />
           ))}

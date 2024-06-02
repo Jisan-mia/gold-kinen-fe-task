@@ -18,6 +18,9 @@ const Autocomplete = () => {
     isLoading,
     setSearchText,
     setSearchResult,
+    handleKeyDown,
+    highlightedIndex,
+    listRef,
   } = useAutocomplete();
 
   useEffect(() => {
@@ -50,6 +53,7 @@ const Autocomplete = () => {
             aria-autocomplete="list"
             value={searchText}
             onChange={handleInputChange}
+            onKeyDown={handleKeyDown}
           />
         </div>
         {isSuggestionOpen && (
@@ -68,10 +72,20 @@ const Autocomplete = () => {
                       <Loader2 className="h-5 w-5 animate-spin text-center" />
                     </div>
                   )}
-                  <div className="grid divide-y divide-border">
+                  <div
+                    className="grid divide-y divide-border"
+                    id="autocomplete-list"
+                    role="listbox"
+                    ref={listRef}
+                  >
                     {searchResult && searchResult?.length > 0
-                      ? searchResult.map((item) => (
-                          <SearchResultItem key={item.id} item={item} />
+                      ? searchResult.map((item, idx) => (
+                          <SearchResultItem
+                            key={item.id}
+                            item={item}
+                            highlightedIndex={highlightedIndex}
+                            idx={idx}
+                          />
                         ))
                       : !isLoading && (
                           <p className="pb-4 text-sm text-foreground/70 text-center">
