@@ -17,34 +17,6 @@ export function useAutocomplete() {
     setIsSuggestionOpen(false);
   });
 
-  // const makeApiRequest = async (text: string) => {
-  //   setIsLoading(true);
-
-  //   try {
-  //     const result = await getAutocompleteSearchResult(text);
-  //     setSearchResult(result);
-  //   } catch (error) {
-  //     setErrorMessage("Error occurred while fetching suggestions");
-  //     setSearchResult(null);
-  //   }
-
-  //   setIsLoading(false);
-  // };
-
-  // const debouncedApiRequest = useCallback(debounce(async (text: string) => {
-  //   setIsLoading(true);
-
-  //   try {
-  //     const result = await getAutocompleteSearchResult(text);
-  //     setSearchResult(result);
-  //   } catch (error) {
-  //     setErrorMessage("Error occurred while fetching suggestions");
-  //     setSearchResult(null);
-  //   }
-
-  //   setIsLoading(false);
-  // }, 500), [makeApiRequest]);
-
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedMakeAPIRequest = useCallback(
     debounce(async (text) => {
