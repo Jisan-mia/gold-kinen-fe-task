@@ -19,3 +19,14 @@ export async function getIndividualPostData(id: string) {
   }
   return post;
 }
+
+export async function getAutocompleteSearchResult(
+  query: string
+): Promise<string[]> {
+  const response = await fetch(`${API_URL}/posts?title_like=^${query}`);
+  const searchResult = (await response.json()) as PostItem[];
+  if (!response.ok) {
+    throw await handleError(response);
+  }
+  return searchResult.map((item) => `${item.title}`);
+}

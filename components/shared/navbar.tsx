@@ -1,6 +1,7 @@
-import { PlusIcon, SearchIcon } from "lucide-react";
+import { PlusIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import Autocomplete from "../autocomplete/autocomplete";
 import ResponsiveMenuButton from "./navbar-menubtn";
 import NavbarProfilePopup from "./navbar-profile-popup";
 const Navbar = () => {
@@ -21,22 +22,7 @@ const Navbar = () => {
           </div>
         </div>
         <div className="w-full flex justify-stretch col-start-3 col-end-9">
-          <div className="max-w-lg mx-auto w-full">
-            <div
-              className={
-                "flex h-10 items-center rounded-full border border-input bg-secondary px-3 py-2 text-sm ring-offset-background focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2"
-              }
-            >
-              <SearchIcon className="size-5 text-foreground" />
-              <input
-                type="search"
-                className={
-                  "w-full p-2 placeholder:text-foreground/70 bg-secondary focus-visible:outline-none rounded-full text-secondary-foreground"
-                }
-                placeholder="Search here"
-              />
-            </div>
-          </div>
+          <Autocomplete />
         </div>
         <div className="flex col-start-9 col-end-13 mobile-md:hidden">
           <div className="flex items-center justify-end w-full gap-3">
