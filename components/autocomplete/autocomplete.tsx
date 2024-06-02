@@ -1,17 +1,29 @@
 "use client";
-import { SearchIcon } from "lucide-react";
-import Link from "next/link";
+import { Loader2, SearchIcon } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
+import SearchResultItem from "./search-result-item";
+import TrendingDiscussionSuggestion from "./trending-discussion";
 import { useAutocomplete } from "./useAutocomplete";
 
 const Autocomplete = () => {
   const pathname = usePathname();
-  const { isSuggestionOpen, setIsSuggestionOpen, searchbarRef } =
-    useAutocomplete();
+  const {
+    isSuggestionOpen,
+    setIsSuggestionOpen,
+    searchbarRef,
+    handleInputChange,
+    searchText,
+    searchResult,
+    isLoading,
+    setSearchText,
+    setSearchResult,
+  } = useAutocomplete();
 
   useEffect(() => {
     setIsSuggestionOpen(false);
+    setSearchText("");
+    setSearchResult(null);
   }, [pathname]);
   return (
     <div ref={searchbarRef} className="max-w-lg mx-auto w-full">
@@ -36,6 +48,8 @@ const Autocomplete = () => {
             aria-expanded={isSuggestionOpen}
             onFocus={() => setIsSuggestionOpen(true)}
             aria-autocomplete="list"
+            value={searchText}
+            onChange={handleInputChange}
           />
         </div>
         {isSuggestionOpen && (
@@ -44,33 +58,31 @@ const Autocomplete = () => {
 
             <div className="overflow-y-auto overflow-x-hidden w-full h-full max-h-[calc(100vh-100px)] pt-4 pb-2.5">
               {/* trending */}
-              <div className="w-full">
-                <h3 className="uppercase font-medium text-xs text-foreground/80 px-3 mb-2">
-                  Trending Discussions
-                </h3>
-
-                <div className="grid divide-y divide-border">
-                  {Array.from(Array(8).keys()).map((item) => (
-                    <Link
-                      key={item}
-                      href={"/discussion/100"}
-                      className="hover:bg-secondary/70 transition-all py-2.5"
-                    >
-                      <div className="px-3">
-                        <h3 className="font-medium text-base text-foreground">
-                          This is post title man
-                        </h3>
-                        <p className="text-sm font-normal text-foreground/70 line-clamp-2">
-                          This is a post description that can go long text as
-                          you can see next line is the duplicate of first part!
-                          This is a post description that can go long text as
-                          you can see next line is the duplicate of first part!
-                        </p>
-                      </div>
-                    </Link>
-                  ))}
+              {searchText ? (
+                <div className="w-full">
+                  <h3 className="font-medium text-xs text-foreground/80 px-3 mb-2">
+                    Search result for &apos;{searchText}&apos;
+                  </h3>
+                  {isLoading && (
+                    <div className="flex items-end justify-center pb-4">
+                      <Loader2 className="h-5 w-5 animate-spin text-center" />
+                    </div>
+                  )}
+                  <div className="grid divide-y divide-border">
+                    {searchResult && searchResult?.length > 0
+                      ? searchResult.map((item) => (
+                          <SearchResultItem key={item.id} item={item} />
+                        ))
+                      : !isLoading && (
+                          <p className="pb-4 text-sm text-foreground/70 text-center">
+                            No Results found
+                          </p>
+                        )}
+                  </div>
                 </div>
-              </div>
+              ) : (
+                <TrendingDiscussionSuggestion />
+              )}
             </div>
           </div>
         )}
